@@ -1,0 +1,8 @@
+
+bin/AndroidManifest.xml
+
+*.class
+
+gen/course/labs/graphicslab/BuildConfig.java
+
+gen/course/labs/graphicslab/R.java
