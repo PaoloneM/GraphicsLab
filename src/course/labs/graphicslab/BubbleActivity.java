@@ -84,19 +84,33 @@ public class BubbleActivity extends Activity {
 				.getStreamVolume(AudioManager.STREAM_MUSIC)
 				/ mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
-		// TODO - make a new SoundPool, allowing up to 10 streams
-		mSoundPool = null;
+		// DONE - make a new SoundPool, allowing up to 10 streams
+		mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 
-		// TODO - set a SoundPool OnLoadCompletedListener that calls
+		// DONE - set a SoundPool OnLoadCompletedListener that calls
 		// setupGestureDetector()
+		mSoundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+				
+				if (status == 0){
+					Log.i(TAG, "Sound loaded");
+					// PM: test sound playing
+					// mSoundPool.play(mSoundID, mStreamVolume, mStreamVolume, 1, 0, 1.0f);
+					setupGestureDetector();
+				}
+				else{
+					Log.i(TAG, "Unable to load sound");
+				}
+			
+			}
+				
+		});
 		
+		// DONE - load the sound from res/raw/bubble_pop.wav
 		
-		
-		
-		
-		// TODO - load the sound from res/raw/bubble_pop.wav
-		
-		
+		mSoundID = mSoundPool.load(this, R.raw.bubble_pop, 1);
 		
 
 	}

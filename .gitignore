@@ -6,3 +6,19 @@ bin/AndroidManifest.xml
 gen/course/labs/graphicslab/BuildConfig.java
 
 gen/course/labs/graphicslab/R.java
+
+*.dex
+
+*.apk
+
+bin/res/crunch/drawable-hdpi/b128.png
+
+bin/res/crunch/drawable-hdpi/b64.png
+
+bin/res/crunch/drawable-hdpi/icon.png
+
+bin/res/crunch/drawable-ldpi/icon.png
+
+bin/res/crunch/drawable-mdpi/icon.png
+
+*.ap_
