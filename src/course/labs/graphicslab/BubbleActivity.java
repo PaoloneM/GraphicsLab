@@ -111,9 +111,10 @@ public class BubbleActivity extends Activity {
 		// DONE - load the sound from res/raw/bubble_pop.wav
 		
 		mSoundID = mSoundPool.load(this, R.raw.bubble_pop, 1);
-		
+        mAudioManager.setSpeakerphoneOn(true);
 
-	}
+
+    }
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
@@ -144,12 +145,6 @@ public class BubbleActivity extends Activity {
 				// You can get all Views in mFrame one at a time
 				// using the ViewGroup.getChildAt() method
 
-
-				
-				
-				
-				
-				
 				return true;
 			}
 
@@ -165,20 +160,17 @@ public class BubbleActivity extends Activity {
 				// You can get all Views in mFrame using the
 				// ViewGroup.getChildCount() method
 
+                Log.i(TAG, "Entered onSingleTapConfirmed");
 
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				return true;
+                int childCount = mFrame.getChildCount();
+                Log.i(TAG, "mFrame ChildCount = " + childCount);
+
+                final BubbleView bubbleView = new BubbleView(getApplicationContext(), event.getX(), event.getY());
+
+                mFrame.addView(bubbleView);
+
+
+                return true;
 			}
 		});
 	}
@@ -186,28 +178,23 @@ public class BubbleActivity extends Activity {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		// TODO - Delegate the touch to the gestureDetector
-
-		
-
-		
-		
-		
-		
-		return true || false;
+		// DONE - Delegate the touch to the gestureDetector
+        if (mGestureDetector.onTouchEvent(event)) return true;
+        else return false;
 		
 	}
 
 	@Override
 	protected void onPause() {
 
-		// TODO - Release all SoundPool resources
+		// DONE - Release all SoundPool resources
+        if (null != mSoundPool) {
+            mSoundPool.unload(mSoundID);
+            mSoundPool.release();
+            mSoundPool = null;
+        }
+        mAudioManager.setSpeakerphoneOn(false);
 
-
-
-		
-		
-		
 		super.onPause();
 	}
 
