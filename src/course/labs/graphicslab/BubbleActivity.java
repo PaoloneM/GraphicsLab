@@ -61,6 +61,8 @@ public class BubbleActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Log.i(TAG, "onCreate");
+
 		setContentView(R.layout.main);
 
 		// Set up user interface
@@ -164,11 +166,14 @@ public class BubbleActivity extends Activity {
 				// TODO - Implement onSingleTapConfirmed actions.
 				// You can get all Views in mFrame using the
 				// ViewGroup.getChildCount() method
+				Log.i(TAG, "entering gestureDetector.onSingleTapConfirmed");
 
+				RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.frame);
 
+				final BubbleView bubbleView = new BubbleView(getApplicationContext(), event.getX(), event.getY());
 				
-				
-				
+				relativeLayout.addView(bubbleView);
+								
 				
 				
 				
@@ -187,14 +192,9 @@ public class BubbleActivity extends Activity {
 	public boolean onTouchEvent(MotionEvent event) {
 
 		// TODO - Delegate the touch to the gestureDetector
+		Log.i(TAG, "onTouchEvent: delegating it to gestureDetector");
+        return mGestureDetector.onTouchEvent(event);
 
-		
-
-		
-		
-		
-		
-		return true || false;
 		
 	}
 
@@ -230,6 +230,8 @@ public class BubbleActivity extends Activity {
 
 		BubbleView(Context context, float x, float y) {
 			super(context);
+
+			Log.i(TAG, "BubbleView: creating a new bubble");
 
 			// Create a new random number generator to
 			// randomize size, rotation, speed and direction
@@ -308,12 +310,14 @@ public class BubbleActivity extends Activity {
 			} else {
 
 				// TODO - set scaled bitmap size in range [1..3] * BITMAP_SIZE
-
-
+				mScaledBitmapWidth = r.nextInt(BITMAP_SIZE*2) + BITMAP_SIZE;
 				
 			}
+			
+			Log.i(TAG, "BubbleView.createScaledBitmap: bitmap size set to " + mScaledBitmapWidth);
 
 			// TODO - create the scaled bitmap using size set above
+			mScaledBitmap = Bitmap.createScaledBitmap(mBitmap, mScaledBitmapWidth, mScaledBitmapWidth, true);
 
 
 		}
@@ -404,7 +408,10 @@ public class BubbleActivity extends Activity {
 		@Override
 		protected synchronized void onDraw(Canvas canvas) {
 
+			Log.i(TAG, "Entered BubbleView.onDraw");
+
 			// TODO - save the canvas
+			canvas.save();
 
 
 			
@@ -419,11 +426,12 @@ public class BubbleActivity extends Activity {
 
 			
 			// TODO - draw the bitmap at it's new location
+			canvas.drawBitmap(mScaledBitmap, mXPos, mYPos, mPainter);
 
 
 			
 			// TODO - restore the canvas
-
+			canvas.restore();
 
 			
 		}
