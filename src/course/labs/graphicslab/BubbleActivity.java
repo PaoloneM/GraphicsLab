@@ -407,11 +407,10 @@ public class BubbleActivity extends Activity {
 					@Override
 					public void run() {
 
-						// TODO - Remove the BubbleView from mFrame
-
+						// DONE - Remove the BubbleView from mFrame
 						mFrame.removeView(mBubbleToDelete);
 						
-						// TODO - If the bubble was popped by user,
+						// DONE - If the bubble was popped by user,
 						// play the popping sound
 						if (wasPopped) {
 
