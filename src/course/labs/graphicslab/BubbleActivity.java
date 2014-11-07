@@ -114,13 +114,9 @@ public class BubbleActivity extends Activity {
 		
 		mSoundID = mSoundPool.load(this, R.raw.bubble_pop, 1);
         mAudioManager.setSpeakerphoneOn(true);
-<<<<<<< HEAD
-=======
-
->>>>>>> BubbleCreation
 
 
-    }
+	}
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
@@ -166,36 +162,6 @@ public class BubbleActivity extends Activity {
 				// You can get all Views in mFrame using the
 				// ViewGroup.getChildCount() method
 				Log.i(TAG, "entering gestureDetector.onSingleTapConfirmed");
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-                Log.i(TAG, "Entered onSingleTapConfirmed");
-
-                int childCount = mFrame.getChildCount();
-                Log.i(TAG, "mFrame ChildCount = " + childCount);
-
-                final BubbleView bubbleView = new BubbleView(getApplicationContext(), event.getX(), event.getY());
-
-                mFrame.addView(bubbleView);
-
-
-                return true;
-=======
-				RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.frame);
-
-				final BubbleView bubbleView = new BubbleView(getApplicationContext(), event.getX(), event.getY());
-				
-				relativeLayout.addView(bubbleView);
-								
-				
-				
-				
-				
-				
-				
-				
-=======
->>>>>>> BubbleCreation
 				
 				float mTapX = event.getX();
 				float mTapY = event.getY();
@@ -236,11 +202,7 @@ public class BubbleActivity extends Activity {
 				}
 				
 				return true;
-<<<<<<< HEAD
->>>>>>> BubbleCreation
-=======
 				
->>>>>>> BubbleCreation
 			}
 		});
 	}
@@ -248,23 +210,10 @@ public class BubbleActivity extends Activity {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		// DONE - Delegate the touch to the gestureDetector
-        if (mGestureDetector.onTouchEvent(event)) return true;
-        else return false;
-=======
-		// TODO - Delegate the touch to the gestureDetector
-		Log.i(TAG, "onTouchEvent: delegating it to gestureDetector");
-        return mGestureDetector.onTouchEvent(event);
-
->>>>>>> BubbleCreation
-=======
 		// DONE - Delegate the touch to the gestureDetector
 		Log.i(TAG, "onTouchEvent: delegating it to gestureDetector");
         return mGestureDetector.onTouchEvent(event);
 
->>>>>>> BubbleCreation
 		
 	}
 
@@ -279,12 +228,9 @@ public class BubbleActivity extends Activity {
         }
         mAudioManager.setSpeakerphoneOn(false);
 
-<<<<<<< HEAD
-=======
 		
 		
 		
->>>>>>> BubbleCreation
 		super.onPause();
 	}
 
