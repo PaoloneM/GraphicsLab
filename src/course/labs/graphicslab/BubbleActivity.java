@@ -114,6 +114,10 @@ public class BubbleActivity extends Activity {
 		
 		mSoundID = mSoundPool.load(this, R.raw.bubble_pop, 1);
         mAudioManager.setSpeakerphoneOn(true);
+<<<<<<< HEAD
+=======
+
+>>>>>>> BubbleCreation
 
 
     }
@@ -162,6 +166,7 @@ public class BubbleActivity extends Activity {
 				// You can get all Views in mFrame using the
 				// ViewGroup.getChildCount() method
 				Log.i(TAG, "entering gestureDetector.onSingleTapConfirmed");
+<<<<<<< HEAD
 
 <<<<<<< HEAD
                 Log.i(TAG, "Entered onSingleTapConfirmed");
@@ -189,9 +194,52 @@ public class BubbleActivity extends Activity {
 				
 				
 				
+=======
+>>>>>>> BubbleCreation
 				
+				float mTapX = event.getX();
+				float mTapY = event.getY();
+				int childCount = mFrame.getChildCount();
+                Log.i(TAG, "Tap @ " + mTapX + ", " + mTapY + "mFrame ChildCount = " + childCount);
+
+                boolean mPopped = false;
+                
+                // PM - loop in bubble views to check weather tap booms bubble
+                for (int i = 0; i < childCount; i++){
+                	
+                	// Get current BubbleView
+                	BubbleView mBubble = (BubbleView) mFrame.getChildAt(i);
+                	
+                	// Check if tap intersects bubble
+                	if (mBubble.intersects(mTapX, mTapY)){
+
+                		// Bubble tapped, pop it
+                		Log.i(TAG, "Tapped bubble #" + i + "... pop it!");                		
+                		mPopped = true;
+                		mBubble.stopMovement(mPopped);
+                		
+                	}
+                	else{
+                		// Bubble not tapped
+                		Log.i(TAG, "Bubble #" + i + " not tapped");                		
+                		 	
+                	}
+                }
+                
+               // If no bubble is tapped creates a new one
+				if (!mPopped) {
+            		Log.i(TAG, "No popped bubbles, trying to create a new one...");                		
+					final BubbleView bubbleView = new BubbleView(
+							getApplicationContext(), mTapX, mTapY);
+					mFrame.addView(bubbleView);
+					bubbleView.startMovement();
+				}
 				
 				return true;
+<<<<<<< HEAD
+>>>>>>> BubbleCreation
+=======
+				
 >>>>>>> BubbleCreation
 			}
 		});
@@ -201,11 +249,18 @@ public class BubbleActivity extends Activity {
 	public boolean onTouchEvent(MotionEvent event) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// DONE - Delegate the touch to the gestureDetector
         if (mGestureDetector.onTouchEvent(event)) return true;
         else return false;
 =======
 		// TODO - Delegate the touch to the gestureDetector
+		Log.i(TAG, "onTouchEvent: delegating it to gestureDetector");
+        return mGestureDetector.onTouchEvent(event);
+
+>>>>>>> BubbleCreation
+=======
+		// DONE - Delegate the touch to the gestureDetector
 		Log.i(TAG, "onTouchEvent: delegating it to gestureDetector");
         return mGestureDetector.onTouchEvent(event);
 
@@ -224,6 +279,12 @@ public class BubbleActivity extends Activity {
         }
         mAudioManager.setSpeakerphoneOn(false);
 
+<<<<<<< HEAD
+=======
+		
+		
+		
+>>>>>>> BubbleCreation
 		super.onPause();
 	}
 
@@ -370,13 +431,14 @@ public class BubbleActivity extends Activity {
 		// Returns true if the BubbleView intersects position (x,y)
 		private synchronized boolean intersects(float x, float y) {
 
-			// TODO - Return true if the BubbleView intersects position (x,y)
-
-
-
-			
-			
-			return  true || false;
+			// DONE - Return true if the BubbleView intersects position (x,y)
+			// Calculates center position
+			float mCenterX = mXPos + mRadius;
+			float mCenterY = mYPos + mRadius;
+			// Calculates distance from tap
+			float mDistanceSquared = (mCenterX - x)*(mCenterX - x) + (mCenterY - y)*(mCenterY - y);
+			// Return compare value between radius and tap distance form center
+			return  mDistanceSquared <= mRadiusSquared ? true : false;
 
 		}
 
@@ -392,6 +454,8 @@ public class BubbleActivity extends Activity {
 					mMoverFuture.cancel(true);
 				}
 
+				final BubbleView mBubbleToDelete = this;
+				
 				// This work will be performed on the UI Thread
 				mFrame.post(new Runnable() {
 					@Override
@@ -399,14 +463,13 @@ public class BubbleActivity extends Activity {
 
 						// TODO - Remove the BubbleView from mFrame
 
-
+						mFrame.removeView(mBubbleToDelete);
 						
 						// TODO - If the bubble was popped by user,
 						// play the popping sound
 						if (wasPopped) {
 
-
-
+							mSoundPool.play(mSoundID, mStreamVolume, mStreamVolume, 1, 0, 1.0f);
 							
 						}
 					}
